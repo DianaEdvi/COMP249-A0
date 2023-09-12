@@ -5,7 +5,8 @@ public class Book {
 	private String author;
 	private long ISBN;
 	private double price;
-	private static int numBooks = 0;
+	private static int totalNumBooks = 0;
+	private static int maxNumBooks = 0;
 	
 	//default constructor
 	public Book() {
@@ -13,7 +14,7 @@ public class Book {
 		author = "Unknown author";
 		ISBN = 0;
 		price = 0.0;
-		numBooks++;
+		totalNumBooks++;
 	}
 	
 	//paramaterized constructor 
@@ -22,7 +23,7 @@ public class Book {
 		author = inAuthor;
 		ISBN = inISBN;
 		price = inPrice;
-		numBooks++;
+		totalNumBooks++;
 	}
 	
 	//getters 
@@ -38,8 +39,11 @@ public class Book {
 	public double getPrice() {
 		return price;
 	}
-	public static int getNumBooks() {
-		return numBooks;
+	public static int getTotalNumBooks() {
+		return totalNumBooks;
+	}
+	public static int getMaxNumBooks() {
+		return maxNumBooks;
 	}
 	
 	//setters
@@ -55,5 +59,33 @@ public class Book {
 	public void setPrice(double inPrice) {
 		price = inPrice;
 	}
+	public static void setMaxNumBooks(int inMaxNumBooks) {
+		maxNumBooks = inMaxNumBooks;
+	}
 	
+	//Converts attributes' data to string
+	public String toString() {
+		return "Author: " + author
+			 + "\nTitle: " + title
+			 + "\nISBN: " + ISBN
+			 + "\nPrice: $" + price; 
+	}
+	//Finds and displays all books under the same author
+	public static void findBooksBy(Book[] inInventory, String inAuthor) {
+		for (int i = 0; i < inInventory.length; i++) {
+			if (inInventory[i].getAuthor().equals(inAuthor)) {
+				System.out.println(inInventory[i].toString());
+				System.out.println();
+			}
+		}
+	}
+	//Takes a value and finds and displays all books with the same or lower price
+	public static void findCheaperThan(Book[] inInventory, double inPrice) {
+		for (int i = 0; i < inInventory.length; i++) {
+			if (inInventory[i].getPrice() <= inPrice) {
+				System.out.println(inInventory[i].toString());
+				System.out.println();
+			}
+		}
+	}
 }
