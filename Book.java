@@ -17,7 +17,7 @@ public class Book {
 		totalNumBooks++;
 	}
 	
-	//paramaterized constructor 
+	//parameterized constructor 
 	public Book(String inTitle, String inAuthor, long inISBN, double inPrice) {
 		title = inTitle;
 		author = inAuthor;
@@ -72,20 +72,30 @@ public class Book {
 	}
 	//Finds and displays all books under the same author
 	public static void findBooksBy(Book[] inInventory, String inAuthor) {
+		boolean found = false;
 		for (int i = 0; i < inInventory.length; i++) {
-			if (inInventory[i].getAuthor().equals(inAuthor)) {
+			if (inInventory[i].getAuthor().equalsIgnoreCase(inAuthor)){
+				found = true;
 				System.out.println(inInventory[i].toString());
 				System.out.println();
 			}
 		}
+		if (!found) {
+			System.out.println("Could not find any books with this author");
+		}
 	}
 	//Takes a value and finds and displays all books with the same or lower price
 	public static void findCheaperThan(Book[] inInventory, double inPrice) {
+		boolean found = false;
 		for (int i = 0; i < inInventory.length; i++) {
 			if (inInventory[i].getPrice() <= inPrice) {
+				found = true;
 				System.out.println(inInventory[i].toString());
 				System.out.println();
 			}
+		}
+		if (!found) {
+			System.out.println("There are no books with a price lower than the amount you entered\n");
 		}
 	}
 }
