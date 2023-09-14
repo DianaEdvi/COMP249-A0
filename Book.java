@@ -18,9 +18,9 @@ public class Book {
 	}
 	
 	//parameterized constructor 
-	public Book(String inTitle, String inAuthor, long inISBN, double inPrice) {
-		title = inTitle;
+	public Book(String inAuthor, String inTitle, long inISBN, double inPrice) {
 		author = inAuthor;
+		title = inTitle;
 		ISBN = inISBN;
 		price = inPrice;
 		totalNumBooks++;
@@ -74,7 +74,7 @@ public class Book {
 	public static void findBooksBy(Book[] inInventory, String inAuthor) {
 		boolean found = false;
 		for (int i = 0; i < inInventory.length; i++) {
-			if (inInventory[i].getAuthor().equalsIgnoreCase(inAuthor)){
+			if (inInventory[i] != null && inInventory[i].getAuthor().equalsIgnoreCase(inAuthor)){
 				found = true;
 				System.out.println(inInventory[i].toString());
 				System.out.println();
@@ -88,7 +88,7 @@ public class Book {
 	public static void findCheaperThan(Book[] inInventory, double inPrice) {
 		boolean found = false;
 		for (int i = 0; i < inInventory.length; i++) {
-			if (inInventory[i].getPrice() <= inPrice) {
+			if (inInventory[i] != null && inInventory[i].getPrice() <= inPrice) {
 				found = true;
 				System.out.println(inInventory[i].toString());
 				System.out.println();
