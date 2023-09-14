@@ -25,6 +25,10 @@ public class A0_Driver {
 				+ "Please enter the maximum number of books your bookstore can contain: ");
 		//Create inventory for max books
 		int maxBooks = verifyInt(keyboard);
+		while (maxBooks <= 0) {
+			System.out.println("You can't have negative books! Try again");
+			maxBooks = verifyInt(keyboard);
+		}
 		Book.setMaxNumBooks(maxBooks);
 		Book[] inventory = new Book[maxBooks];
 		
@@ -35,12 +39,13 @@ public class A0_Driver {
 		int counter02 = 0;
 		//Loop that contains options from main menu 
 		while (!(input == 5)) {
+			int oldCounter = counter;
 			System.out.println("Please enter your choice from 1 to 5: ");
 			input = verifyInput(keyboard);
 			//Option 1: Verifies password, then prompts user for amount of books 
 			if (input == 1) {	
 				counter = verifyPassword(keyboard, counter);
-				if (counter % 3 == 0) {
+				if (oldCounter != counter && counter % 3 == 0) {
 					continue;
 				}
 				int option = 0;
@@ -49,6 +54,10 @@ public class A0_Driver {
 				do {
 					System.out.println("How many books would you like to enter?");
 					int numBooks = verifyInt(keyboard);
+					while (numBooks <= 0) {
+						System.out.println("You can't have negative books! Try again");
+						numBooks = verifyInt(keyboard);
+					}
 					int totalBooks = 0; //used to avoid overwriting references in inventory array
 					
 					//Sort new books into inventory array
@@ -58,13 +67,22 @@ public class A0_Driver {
 						for (int i = 0; i < numBooks; i++) {
 							System.out.println("Enter book # " + (i + totalBooks) + "'s information: ");
 							System.out.print("Enter the author's name: ");
-							String author = keyboard.next();
-							System.out.print("Enter the title: "); //do i want to deal with someone only pressing enter? 
-							String title = keyboard.next();
-							System.out.print("Enter the ISBN: "); //do i want to create "Empty" books?
+							keyboard.nextLine();
+							String author = keyboard.nextLine();
+							System.out.print("Enter the title: "); 
+							String title = keyboard.nextLine();
+							System.out.print("Enter the ISBN: "); 
 							long isbn = verifyNumber(keyboard);
+							while (isbn <= 0) {
+								System.out.println("You can't have a negative ISBN! Try again");
+								isbn = verifyInt(keyboard);
+							}
 							System.out.print("Enter the Price: ");
 							double price = verifyDouble(keyboard);
+							while (price <= 0) {
+								System.out.println("You can't have a negative price! Try again");
+								price = verifyInt(keyboard);
+							}
 							
 							inventory[i + totalBooks] = new Book(author, title, isbn, price); 
 							
@@ -96,13 +114,22 @@ public class A0_Driver {
 									for (int i = 0; i < (numBooks); i++) {
 									System.out.println("Enter book # " + (i + totalBooks) + "'s information (you can always change this in the future): ");
 									System.out.print("Enter the author's name: ");
+									keyboard.nextLine();
 									String author = keyboard.next();
-									System.out.print("Enter the title: "); //do i want to deal with someone only pressing enter? 
+									System.out.print("Enter the title: ");
 									String title = keyboard.next();
 									System.out.print("Enter the ISBN: ");
 									long isbn = verifyNumber(keyboard);
+									while (isbn <= 0) {
+										System.out.println("You can't have a negative ISBN! Try again");
+										isbn = verifyInt(keyboard);
+									}
 									System.out.print("Enter the Price: ");
 									double price = verifyDouble(keyboard);
+									while (price <= 0) {
+										System.out.println("You can't have a negative price! Try again");
+										price = verifyInt(keyboard);
+									}
 									
 										inventory[i + totalBooks] = new Book(author, title, isbn, price);
 										
@@ -127,8 +154,9 @@ public class A0_Driver {
 			}
 			//Option 2: Verifies password, then prompts user to update books 
 			else if (input == 2) {
+				int oldCounter02 = counter02;
 				counter02 = verifyPassword(keyboard, counter02);
-				if (counter02 % 3 == 0) {
+				if (oldCounter02 != counter02 && counter02 % 3 == 0) {
 					continue;
 				}
 				int option = 0;
@@ -255,6 +283,7 @@ public class A0_Driver {
 			keyboard.next();
 		}
 		input = keyboard.nextInt();
+		
 		return input;
 	}
 	public static double verifyDouble(Scanner keyboard) {
